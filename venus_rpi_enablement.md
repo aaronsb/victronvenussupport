@@ -212,8 +212,6 @@ ip link set can0 up
 ```
 /usr/local/bin/slcan_remove.sh
 ```bash
-#beginscript
-
 #!/bin/sh
 
 ### Remove the USBCAN device
