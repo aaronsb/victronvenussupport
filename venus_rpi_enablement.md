@@ -19,7 +19,7 @@ Support files for managing and deploying my Victron Venus OS stuff. Started out 
 
 
 ###  Modify config.txt ###
-Add config lines to [all] section of `/u-boot/config.txt` (this is the config.txt variant that the venus os uses)
+Add config lines to `[all]` section of `/u-boot/config.txt` (this is the config.txt variant that the venus os uses)
 
 /u-boot/config.txt
 ```bash  
@@ -51,6 +51,7 @@ Install kernel module package.
 opkg install kernel-module-rtc-ds1307
 ```
 Create a file called /data/rc.local add this line to it to run on startup.
+I think you have to chmod 755 that file.
 
 /data/rc.local
 ```bash
@@ -111,7 +112,7 @@ This is an optional script to control backlight and dim it to a reasonable brigh
 
 After creating the file, set the script to set it executable, then symlink script.
 
-/opt/rpi-screen/backlightctl.sh
+/opt/rpi-screen/[backlightctl.sh](https://github.com/aaronsb/victronvenussupport/blob/master/backlightctl.sh)
 ```bash
 chmod 755 /opt/rpi-screen/backlightctl.sh
 ln -s /usr/sbin/ /opt/rpi-screen/backlightctl.sh
@@ -202,7 +203,7 @@ I bought this device from http://canable.io/, and it shows up as a "CANtact" dev
 
 Create start and stop scripts for slcand. You'll need an add and remove script.
 
-/usr/local/bin/slcan_add.sh
+/usr/local/bin/[slcan_add.sh](https://github.com/aaronsb/victronvenussupport/blob/master/slcan_add.sh)
 ```bash
 #!/bin/sh
 
@@ -210,7 +211,7 @@ Create start and stop scripts for slcand. You'll need an add and remove script.
 slcand -o -c -s5 /dev/serial/by-id/*CANtact* can0
 ip link set can0 up
 ```
-/usr/local/bin/slcan_remove.sh
+/usr/local/bin/[slcan_remove.sh](https://github.com/aaronsb/victronvenussupport/blob/master/slcan_remove.sh)
 ```bash
 #!/bin/sh
 
@@ -224,7 +225,7 @@ Add scripts to rules.d so it works for starting and stopping properly.
 
 Create file `/etc/udev/rules.d/slcan.rules`, which adds start and stop rules. Note that the device is called "CANtact_dev" - if you have a different device it might show up as a differently named device.
 
-/etc/udev/rules.d/slcan.rules
+/etc/udev/rules.d/[slcan.rules](https://github.com/aaronsb/victronvenussupport/blob/master/slcan.rules)
 ```bash
 ACTION=="add", ENV{ID_MODEL}=="CANtact_dev", ENV{SUBSYSTEM}=="tty", RUN+="/usr/bin/logger [udev] Canable CANUSB detected - running slcan_add.sh!", RUN+="/usr/local/bin/slcan_add.sh $kernel"
 ACTION=="remove", ENV{ID_MODEL}=="CANtact_dev", ENV{SUBSYSTEM}=="usb", RUN+="/usr/bin/logger [udev] Canable CANUSB removed - running slcan_remove.sh!", RUN+="/usr/local/bin/slcan_remove.sh"
