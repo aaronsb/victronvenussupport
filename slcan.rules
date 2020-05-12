@@ -1,0 +1,2 @@
+ACTION=="add", ENV{ID_MODEL}=="CANtact_dev", ENV{SUBSYSTEM}=="tty", RUN+="/usr/bin/logger [udev] Canable CANUSB detected - running slcan_add.sh!", RUN+="/usr/local/bin/slcan_add.sh $kernel"
+ACTION=="remove", ENV{ID_MODEL}=="CANtact_dev", ENV{SUBSYSTEM}=="usb", RUN+="/usr/bin/logger [udev] Canable CANUSB removed - running slcan_remove.sh!", RUN+="/usr/local/bin/slcan_remove.sh"
