@@ -18,7 +18,7 @@ Please issue a pull request with updated urls to links and stuff if you've found
 
 
 ###  Modify config.txt ###
-Add config lines to [all] section of /u-boot/config.txt (this is the config.txt variant that the venus os uses)
+Add config lines to [all] section of `/u-boot/config.txt` (this is the config.txt variant that the venus os uses)
 
 /u-boot/config.txt
 ```bash  
@@ -106,12 +106,13 @@ opkg install kernel-module-rpi-backlight
 ```
 ### Create backlightctl.sh script (optional) ###
 
-This is an optional script to control backlight and dim it to a reasonable brightness when starting. You can insert it into/save this script in /opt/rpi-screen/backlightctl.sh
+This is an optional script to control backlight and dim it to a reasonable brightness when starting. You can insert it into/save this script in `/opt/rpi-screen/backlightctl.sh`
 
-After creating the file, chmod 755 the script to set it executable, then symlink script:
+After creating the file, set the script to set it executable, then symlink script.
 
 /opt/rpi-screen/backlightctl.sh
 ```bash
+chmod 755 /opt/rpi-screen/backlightctl.sh
 ln -s /usr/sbin/ /opt/rpi-screen/backlightctl.sh
 ```
 
@@ -169,7 +170,7 @@ ts_calibrate
 ```
 
 ### Victron /opt/victronenergy/gui/start-gui.sh modification ###
-Add the following lines right after the  ```"when headfull "``` comment block.
+Add the following lines right after the  `"when headfull "` comment block.
 Note that these require you to have first calibrated the screen, saving the various calibration files. backlightctl.sh is listed just above. If you didn't want to use it, omit that from your modification.
 
 /opt/victronenergy/gui/start-gui.sh
@@ -222,7 +223,7 @@ Make sure you chmod 755 (executable) both scripts.
  
 Add scripts to rules.d so it works for starting and stopping properly.
 
-create file /etc/udev/rules.d/slcan.rules, which adds start and stop rules. Note that the device is called "CANtact_dev" - if you have a different device it might show up as a differently named device.
+Create file `/etc/udev/rules.d/slcan.rules`, which adds start and stop rules. Note that the device is called "CANtact_dev" - if you have a different device it might show up as a differently named device.
 
 /etc/udev/rules.d/slcan.rules
 ```bash
@@ -261,12 +262,10 @@ The trick to making this work since it's an SPI device that needs to identify as
 
 Here's an excerpt from post: (https://groups.google.com/d/msg/victron-dev-venus/mejgJbMjU34/WglmnUPQAwAJ)
 
-I had to convert the mcp3008-overlay.dtb to a dts file, change all references to 3008 to 3208, and convert it back to a dtb file, to get it to give me 12-bits (4095).
-(I've enclosed the dtb file if anyone needs it). The line in config.txt should read "dtoverlay=mcp3208:spi0-0-present"
+>I had to convert the mcp3008-overlay.dtb to a dts file, change all references to 3008 to 3208, and convert it back to a dtb file, to get it to give me 12-bits (4095).
+>(I've enclosed the dtb file if anyone needs it). The line in config.txt should read "dtoverlay=mcp3208:spi0-0-present"
 
-
-After adding that file to /u-boot/config.txt, install the kernel driver and set the following items executable, and link the service to the right dbus node.
-
+After adding that file to `/u-boot/config.txt`, install the kernel driver and set the following items executable, and link the service to the right dbus node.
 
 ```bash
 opkg install kernel-module-mcp320x
@@ -277,8 +276,6 @@ chmod 755 /opt/victronenergy/dbus-adc/log/run
 touch /var/log/dbus-adc
 ln -s /opt/victronenergy/dbus-adc/service /service/dbus-adc
 ```
-
-
 
 ### GPIO Pins for Opto protected relay coltrol ###
 
