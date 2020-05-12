@@ -1,6 +1,7 @@
 # Victron Venus On Raspberry PI
-Support files for managing and deploying my Victron Venus OS stuff
-Please issue a pull request with updated urls to links and stuff if you've found they're out of date and I'll integrate them in.
+Support files for managing and deploying my Victron Venus OS stuff. Started out as a gist here: https://gist.github.com/aaronsb/3a8de2bfc6081ecda268a353125bae14
+
+##Please issue a pull request with updated urls to links and stuff if you've found they're out of date and I'll integrate them in.
 
 * ADAC and RTC are based on the Expander Pi: https://www.abelectronics.co.uk/p/50/Expander-Pi
 * 16 channel digital signal: MCP23017
